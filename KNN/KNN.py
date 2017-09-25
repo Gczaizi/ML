@@ -1,6 +1,7 @@
 # coding: utf-8
 
 from numpy import *
+from os import listdir
 import operator
 
 
@@ -101,3 +102,67 @@ def classifyPerson():
     inArr = array([ffMiles, percentTats, iceCream])
     classifierResult = classify0((inArr-minVals)/ranges, normMat, datingLabels, 3)
     print(resultList[classifierResult - 1])
+
+
+def img2vector(filename):
+    returnVect = zeros((1,1024))
+    # print(filename)
+    fr = open(filename)
+    for i in range(32):
+        lineStr = fr.readline()
+        # print(lineStr.strip())
+        for j in range(32):
+            returnVect[0,32*i+j] = int(lineStr[j])
+        # print(returnVect)
+
+    return returnVect
+
+
+def handwritingClassTest():
+    hwLabels = []
+    trainingFileList = listdir('digits/trainingDigits')
+    m = len(trainingFileList)
+    trainingMat = zeros((m,1024))
+    for i in range(m):
+        fileNameStr = trainingFileList[i]
+        fileStr = fileNameStr.split('.')[0]
+        classNumberStr = int(fileStr.split('_')[0])
+        hwLabels.append(classNumberStr)
+        # print('digits/trainingDigits/%s' % fileNameStr)
+        trainingMat[i,:] = img2vector('digits/trainingDigits/%s' % fileNameStr)
+    testFileList = listdir('digits/testDigits')
+    errorCount = 0.0
+    mTest = len(testFileList)
+    for i in range(mTest):
+        fileNameStr = testFileList[i]
+        fileStr = fileNameStr.split('.')[0]
+        classNumberStr = int(fileStr.split('_')[0])
+        vectorUnderTest = img2vector('digits/testDigits/%s' % fileNameStr)
+        classifierResult = classify0(vectorUnderTest, trainingMat, hwLabels, 3)
+        print(classifierResult, classNumberStr)
+        if (classifierResult != classNumberStr):
+            errorCount += 1.0
+    
+    print(errorCount)
+    print(errorCount / float(mTest))
+
+
+def classifyNumber():
+    resultList = range(10)
+    # print(resultList[0])
+    testVector = img2vector(input("filname: "))
+    # print(testVector[0,:31])
+    hwLabels = []
+    trainingFileList = listdir('digits/trainingDigits')
+    m = len(trainingFileList)
+    trainingMat = zeros((m,1024))
+    for i in range(m):
+        fileNameStr = trainingFileList[i]
+        fileStr = fileNameStr.split('.')[0]
+        classNumberStr = int(fileStr.split('_')[0])
+        hwLabels.append(classNumberStr)
+        # print('digits/trainingDigits/%s' % fileNameStr)
+        trainingMat[i,:] = img2vector('digits/trainingDigits/%s' % fileNameStr)
+    classifierResult = classify0(testVector, trainingMat, hwLabels, 3)
+    print(classifierResult)
+    print(resultList[classifierResult])
