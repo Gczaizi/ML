@@ -76,7 +76,7 @@ def plotMidText(centerPt, parentPt, txtString):
     txtString, 
     va='center', 
     ha='center', 
-    rotation=30)
+    rotation=0)
 
 
 def plotTree(myTree, parentPt, nodeTxt):
