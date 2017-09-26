@@ -94,7 +94,7 @@ def createTree(dataSet, labels):
     
     # 类别完全相同则停止划分
     if classList.count(classList[0]) == len(classList): # classList[0] 出现了 len(classList) 次
-        return classList
+        return classList[0]
     
     # 遍历完所有特征时返回出现次数最多的
     if len(dataSet[0]) == 1:
@@ -140,7 +140,7 @@ if __name__ == '__main__':
     # print(labels)
     # print(myTree)
     # myTree['no surfacing'][3] = 'maybe'
-    # treePlotter.createPlot(myTree) # 画出决策树
+    treePlotter.createPlot(myTree) # 画出决策树
     a = classify(myTree, labels, [0,0])
     b = classify(myTree, labels, [1,1])
     print(a, b)
