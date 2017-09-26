@@ -115,11 +115,34 @@ def createTree(dataSet, labels):
     return myTree
 
 
+# 决策树分类器
+def classify(inputTree, featLabels, testVec):
+    firstStr = list(inputTree.keys())[0]
+    secondDict = inputTree[firstStr]
+
+    # 将标签字符串转换为索引
+    featIndex = featLabels.index(firstStr)  # index 方法查找 featLabels 中第一个匹配 firstStr 的元素位置
+    for key in secondDict.keys():
+        if testVec[featIndex] == key:
+            if type(secondDict[key]).__name__ == 'dict':
+                classLabel = classify(secondDict[key], featLabels, testVec)
+            else:
+                # 到达叶子节点，返回节点分类标签
+                classLabel = secondDict[key]
+    
+    return classLabel
+
+
 if __name__ == '__main__':
     myDat, labels = createDataSet()
     myTree = createTree(myDat, labels)
+    myDat, labels = createDataSet()
+    # print(labels)
     # print(myTree)
     # myTree['no surfacing'][3] = 'maybe'
-    treePlotter.createPlot(myTree)
+    # treePlotter.createPlot(myTree) # 画出决策树
+    a = classify(myTree, labels, [0,0])
+    b = classify(myTree, labels, [1,1])
+    print(a, b)
     # print(treePlotter.getNumLeafs(myTree))
     # print(treePlotter.getTreeDepth(myTree))
