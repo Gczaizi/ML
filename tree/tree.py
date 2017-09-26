@@ -133,16 +133,28 @@ def classify(inputTree, featLabels, testVec):
     return classLabel
 
 
+def storeTree(inputTree, filename):
+    import pickle
+    fw = open(filename, 'wb')
+    pickle.dump(inputTree, fw)
+    fw.close()
+
+
+def grabTree(filename):
+    import pickle
+    fr = open(filename, 'rb')
+    return pickle.load(fr)
+
+
 if __name__ == '__main__':
     myDat, labels = createDataSet()
-    myTree = createTree(myDat, labels)
-    myDat, labels = createDataSet()
+    # myTree = createTree(myDat, labels)
+    # storeTree(myTree, 'classifierStorage.txt')    # 储存决策树到文件
+    myTree = grabTree('classifierStorage.txt')
+    # myDat, labels = createDataSet()
     # print(labels)
     # print(myTree)
     # myTree['no surfacing'][3] = 'maybe'
-    treePlotter.createPlot(myTree) # 画出决策树
-    a = classify(myTree, labels, [0,0])
-    b = classify(myTree, labels, [1,1])
-    print(a, b)
+    # treePlotter.createPlot(myTree) # 画出决策树
     # print(treePlotter.getNumLeafs(myTree))
     # print(treePlotter.getTreeDepth(myTree))

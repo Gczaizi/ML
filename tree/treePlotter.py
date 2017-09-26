@@ -33,7 +33,7 @@ def createPlot(inTree):
     plotTree.xOff = -0.5 / plotTree.totalW
     plotTree.yOff = 1.0
     plotTree(inTree, (0.5,1.0), '')
-    plt.savefig('decisionTree.png')
+    plt.savefig('lenses.png')
 
 
 # 获取叶节点数目 递归
@@ -76,7 +76,7 @@ def plotMidText(centerPt, parentPt, txtString):
     txtString, 
     va='center', 
     ha='center', 
-    rotation=0)
+    rotation=30)
 
 
 def plotTree(myTree, parentPt, nodeTxt):
