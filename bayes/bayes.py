@@ -42,7 +42,7 @@ def setOfWords2Vec(vocabList, inputSet):
     return returnVec
 
 
-def bagOfWords2Vec(vocabList, inputSet):
+def bagOfWords2VecMN(vocabList, inputSet):
 
     # 创建一个其中所含元素都为 0 的向量
     returnVec = [0] * len(vocabList)
