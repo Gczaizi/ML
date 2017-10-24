@@ -42,7 +42,7 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
                 j = selectJrand(i,m)
                 fXj = float(multiply(alphas,labelMat).T*(dataMatrix*dataMatrix[j,:].T)) + b
                 Ej = fXj - float(labelMat[j])
-                alphaIold = alphas[i].copy(); alphaJold = alphas[j].copy();
+                alphaIold = alphas[i].copy(); alphaJold = alphas[j].copy()
                 if (labelMat[i] != labelMat[j]):
                     L = max(0, alphas[j] - alphas[i])
                     H = min(C, C + alphas[j] - alphas[i])
